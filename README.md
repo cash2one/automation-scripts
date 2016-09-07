@@ -7,10 +7,10 @@ and create a .desktop launcher in ~/.local/share/applications
 ### samba-configurator
 Samba installer and configurator for CentOS7. This script will manage
 everything is needed to have samba up and running: it will install
-packages, add share to samba configuration, setup selinux booleans
-(for samba in read only mode), add appropriate selinux target label
-on shared directory and files, and add "samba" service to the selected
-firewalld zone (by default is the "home" zone, change it as you like).
+packages, add share to samba configuration, setup appropriate selinux
+target label on shared directory and files, and add "samba" service to
+the selected firewalld zone (by default is the "home" zone, change it as
+you like).
 
 
 ### wp_deploy
