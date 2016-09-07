@@ -2,10 +2,10 @@
 #
 # Samba installer and configurator for CentOS7. This script will manage
 # everything is needed to have samba up and running: it will install
-# packages, add share to samba configuration, setup selinux booleans
-# (for samba in read only mode), add appropriate selinux target label
-# on shared directory and files, and add "samba" service to the selected
-# firewalld zone (by default is the "home" zone, change it as you like).
+# packages, add share to samba configuration, setup appropriate selinux
+# target label on shared directory and files, and add "samba" service to
+# the selected firewalld zone (by default is the "home" zone, change it
+# as you like).
 #
 set -e
 set -u
@@ -55,8 +55,6 @@ create_user() {
 
 
 selinux_setup() {
-  echo "enabling selinux boolean (samba_export_all_ro) ... "
-  setsebool samba_export_all_ro 1 
   echo "Creating and applying SElinux context for shared directory ... "
   semanage fcontext -a -t samba_share_t "${shared_dir}(/.*)?"
   restorecon -R $shared_dir
