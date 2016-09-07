@@ -17,8 +17,8 @@ except ImportError:
 
 def git_clone(address, destination):
     """
-    Clone a git repository at the given destination. The repository name
-    will be 'extracted' from the last part of the repository url.
+    Clone a git repository into the given destination. The repository
+    name will be 'extracted' from the last part of the repository url.
     """
     repo_name = address.split('/')[-1]
     repo_directory = os.path.join(destination, repo_name)
@@ -28,14 +28,17 @@ def git_clone(address, destination):
 
 def stow(stow_root, package):
     """
-    Stow 'package' in 'stow_root' considering the user home directory as
-    target (read gnu stow manual for futher informations).
+    Stow 'package' contained in 'stow_root', considering the user home
+    directory as target (read gnu stow manual for futher informations).
     """
     home = os.getenv('HOME')
     if package == 'bash':
         targets = [os.path.join(home, i) for i in ['.bashrc', '.bash_profile']]
         for i in targets:
-            os.rename(i, i + '.orig')
+            try:
+                os.rename(i, i + '.orig')
+            except OSError:
+                pass
     cmd = ['stow', '-d', stow_root, '-t', home, package]
     subprocess.check_call(cmd)
 
@@ -77,6 +80,7 @@ def main():
         subprocess.check_call(['fc-cache', '-f'])
     except subprocess.CalledProcessError:
         pass
+
 
 if __name__ == '__main__':
     main()
