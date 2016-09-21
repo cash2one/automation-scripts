@@ -36,7 +36,6 @@ class WpSite(object):
     def virtualhost_setup(self):
         """Generate the site VirtualHost configuration."""
         os.mkdir(self.base)
-        # Build the VirtualHost configuration
         config = textwrap.dedent(
             """\
             <VirtualHost %s:80>

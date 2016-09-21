@@ -44,39 +44,42 @@ def stow(stow_root, package):
 
 
 def main():
-    py_packages = ['flake8', 'virtualenv', 'youtube-dl', 'pylint']
-    stow_packages = ['vim', 'wallpapers', 'fonts', 'bash', 'pylint']
-
-    git_directory = (os.path.join(os.getenv('HOME'), 'git'))
-    git_repos = [
-        'https://github.com/egdoc/dotfiles',
-        'https://github.com/egdoc/init',
-        'https://github.com/egdoc/phs'
-    ]
+    py_packages = ['flake8', 'virtualenv', 'pylint']
+    stow_packages = ['vim', 'fonts', 'bash', 'pylint']
 
     # if i3wm is installed we need to stow some other packages
     if os.path.exists('/usr/bin/i3'):
         stow_packages.extend(['i3', 'xorg', 'mutt'])
 
+    git_directory = (os.path.join(os.getenv('HOME'), 'git'))
+    git_repos = [
+        'https://github.com/egdoc/dotfiles',
+        'https://github.com/egdoc/init'
+    ]
+
+    # Clone git repositories
     for repo in git_repos:
+        print('starting to clone %s...' % repo)
         try:
-            print('starting to clone %s...' % repo)
             git_clone(repo, git_directory)
         except subprocess.CalledProcessError:
             pass
 
+    # Place dotfiles with gnu stow
     for stow_package in stow_packages:
+        print('stowing %s...' % stow_package)
         try:
-            print('stowing %s...' % stow_package)
             stow(os.path.join(os.getenv('HOME'), 'git/dotfiles'), stow_package)
         except subprocess.CalledProcessError:
             pass
 
+    # Install python packages with pip
     for package in py_packages:
         pip.main(['install', '--disable-pip-version-check', package, '--user'])
 
+    # This is necessary to make powerline-fonts available and selectable
+    print('reloading fonts cache...')
     try:
-        print('reloading fonts cache...')
         subprocess.check_call(['fc-cache', '-f'])
     except subprocess.CalledProcessError:
         pass
