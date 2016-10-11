@@ -34,7 +34,7 @@ install() {
   mkdir -p "${install_dir}/${app_name}"
   echo "installing, please wait ..."
   wget -qO - "${app_url}" \
-    tar --directory="${install_dir}/${app_name}" \
+    | tar --directory="${install_dir}/${app_name}" \
       --extract \
       --preserve-permissions \
       --bzip2 \
@@ -49,7 +49,7 @@ create_launcher() {
 
   echo "creating launcher ..."
   cat << EOF > "${launcher_dir}/${app_name}.desktop"
-Desktop Entry]
+[Desktop Entry]
 Type=Application
 Name=Firefox-dev
 Exec=${app_exec}
