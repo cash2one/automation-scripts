@@ -45,7 +45,7 @@ def stow(stow_root, package):
 
 def main():
     py_packages = ['flake8', 'virtualenv', 'pylint']
-    stow_packages = ['vim', 'fonts', 'bash', 'pylint']
+    stow_packages = ['vim', 'bash', 'pylint']
 
     # if i3wm is installed we need to stow some other packages
     if os.path.exists('/usr/bin/i3'):
