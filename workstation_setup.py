@@ -60,7 +60,7 @@ def main():
     }
     
     # Clone git repositories
-    for repo, destination in git_repos.items():
+    for repo, destination in git_repos.iteritems():
         print('starting to clone %s...' % repo)
         try:
             git_clone(repo, destination)
