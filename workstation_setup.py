@@ -52,16 +52,18 @@ def main():
         stow_packages.extend(['i3', 'xorg', 'mutt'])
 
     git_directory = (os.path.join(os.getenv('HOME'), 'git'))
-    git_repos = [
-        'https://github.com/egdoc/dotfiles',
-        'https://github.com/egdoc/init'
-    ]
-
+    git_repos = {
+        'https://github.com/egdoc/dotfiles': git_directory,
+        'https://github.com/egdoc/init': git_directory,
+        'https://github.com/VundleVim/Vundle.vim': os.path.join(
+            os.getenv('HOME'), 'git/dotfiles/vim/.vim/bundle')
+    }
+    
     # Clone git repositories
-    for repo in git_repos:
+    for repo, destination in git_repos.items():
         print('starting to clone %s...' % repo)
         try:
-            git_clone(repo, git_directory)
+            git_clone(repo, destination)
         except subprocess.CalledProcessError:
             pass
 
