@@ -52,15 +52,15 @@ def main():
         stow_packages.extend(['i3', 'xorg', 'mutt'])
 
     git_directory = (os.path.join(os.getenv('HOME'), 'git'))
-    git_repos = {
-        'https://github.com/egdoc/dotfiles': git_directory,
-        'https://github.com/egdoc/init': git_directory,
-        'https://github.com/VundleVim/Vundle.vim': os.path.join(
-            os.getenv('HOME'), 'git/dotfiles/vim/.vim/bundle')
-    }
+    git_repos = [
+        ('https://github.com/egdoc/dotfiles', git_directory),
+        ('https://github.com/egdoc/init', git_directory),
+        ('https://github.com/VundleVim/Vundle.vim',
+            os.path.join(os.getenv('HOME'), 'git/dotfiles/vim/.vim/bundle'))
+    ]
     
     # Clone git repositories
-    for repo, destination in git_repos.iteritems():
+    for repo, destination in git_repos:
         print('starting to clone %s...' % repo)
         try:
             git_clone(repo, destination)
@@ -78,14 +78,6 @@ def main():
     # Install python packages with pip
     for package in py_packages:
         pip.main(['install', '--disable-pip-version-check', package, '--user'])
-
-    # This is necessary to make powerline-fonts available and selectable
-    print('reloading fonts cache...')
-    try:
-        subprocess.check_call(['fc-cache', '-f'])
-    except subprocess.CalledProcessError:
-        pass
-
 
 if __name__ == '__main__':
     main()
