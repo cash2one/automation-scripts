@@ -56,7 +56,8 @@ def main():
         ('https://github.com/egdoc/dotfiles', git_directory),
         ('https://github.com/egdoc/init', git_directory),
         ('https://github.com/VundleVim/Vundle.vim',
-            os.path.join(os.getenv('HOME'), 'git/dotfiles/vim/.vim/bundle'))
+            os.path.join(os.getenv('HOME'), 'git/dotfiles/vim/.vim/bundle')),
+        ('https://github.com/powerline/fonts', git_directory)
     ]
     
     # Clone git repositories
