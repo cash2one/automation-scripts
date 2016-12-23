@@ -14,6 +14,12 @@ except ImportError:
     print('You should install pip!')
     sys.exit(1)
 
+for binary in ['stow', 'git']:
+    try:
+        subprocess.Popen([binary], stdout = subprocess.PIPE)
+    except FileNotFoundError:
+        sys.exit('Missing dependency: %s' % binary)
+
 
 def git_clone(address, destination):
     """
@@ -59,7 +65,7 @@ def main():
             os.path.join(os.getenv('HOME'), 'git/dotfiles/vim/.vim/bundle')),
         ('https://github.com/powerline/fonts', git_directory)
     ]
-    
+
     # Clone git repositories
     for repo, destination in git_repos:
         print('starting to clone %s...' % repo)
