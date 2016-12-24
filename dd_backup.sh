@@ -34,4 +34,4 @@ echo "Starting backup ..."
 dd if=/dev/sda bs=1M status=progress \
   | gzip -c9 \
   | ssh "${remote_user}@${remote_server}" \
-  "dd of=${remote_backup_folder}/system.img.gz"
+  "dd of=${remote_backup_folder}/system.img.gz bs=1M"
