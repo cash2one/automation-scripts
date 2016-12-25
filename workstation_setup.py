@@ -16,7 +16,7 @@ except ImportError:
 
 for binary in ['stow', 'git']:
     try:
-        subprocess.Popen([binary], stdout = subprocess.PIPE)
+        subprocess.Popen([binary], stdout=subprocess.PIPE)
     except FileNotFoundError:
         sys.exit('Missing dependency: %s' % binary)
 
@@ -61,8 +61,6 @@ def main():
     git_repos = [
         ('https://github.com/egdoc/dotfiles', git_directory),
         ('https://github.com/egdoc/init', git_directory),
-        ('https://github.com/VundleVim/Vundle.vim',
-            os.path.join(os.getenv('HOME'), 'git/dotfiles/vim/.vim/bundle')),
         ('https://github.com/powerline/fonts', git_directory)
     ]
 
@@ -85,6 +83,7 @@ def main():
     # Install python packages with pip
     for package in py_packages:
         pip.main(['install', '--disable-pip-version-check', package, '--user'])
+
 
 if __name__ == '__main__':
     main()
