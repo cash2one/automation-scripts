@@ -51,7 +51,7 @@ def stow(stow_root, package):
 
 def main():
     py_packages = ['flake8', 'virtualenv', 'pylint']
-    stow_packages = ['vim', 'bash', 'pylint']
+    stow_packages = ['vim', 'bash', 'pylint', 'wallpapers']
 
     # if i3wm is installed we need to stow some other packages
     if os.path.exists('/usr/bin/i3'):
@@ -61,7 +61,10 @@ def main():
     git_repos = [
         ('https://github.com/egdoc/dotfiles', git_directory),
         ('https://github.com/egdoc/init', git_directory),
-        ('https://github.com/powerline/fonts', git_directory)
+        ('https://github.com/powerline/fonts', git_directory),
+        ('https://github.com/egdoc/lamp-dockerfile', git_directory),
+        ('https://github.com/egdoc/phs', git_directory),
+        ('https://gitlab.com/egdoc/fantapilu', git_directory)
     ]
 
     # Clone git repositories
@@ -83,6 +86,15 @@ def main():
     # Install python packages with pip
     for package in py_packages:
         pip.main(['install', '--disable-pip-version-check', package, '--user'])
+
+    # Remove bash backup files if present
+    for i in ['.bashrc.orig', '.bash_profile.orig']:
+        try:
+            os.remove(os.path.join(os.getenv('HOME'), i))
+        except FileNotFoundError:
+            pass
+        else:
+            print('Removed %s' % i)
 
 
 if __name__ == '__main__':
