@@ -61,7 +61,8 @@ def main():
     git_repos = [
         ('https://github.com/egdoc/dotfiles', git_directory),
         ('https://github.com/egdoc/init', git_directory),
-        ('https://github.com/powerline/fonts', git_directory),
+        ('https://github.com/egdoc/powerline/fonts', git_directory),
+        ('https://github.com/egdoc/kickstart', git_directory),
         ('https://github.com/egdoc/lamp-dockerfile', git_directory),
         ('https://github.com/egdoc/phs', git_directory),
         ('https://gitlab.com/egdoc/fantapilu', git_directory)
